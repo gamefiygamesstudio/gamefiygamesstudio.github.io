@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* 设置轮播图容器的样式 */
+    .slideshow {
+      width: 100%;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 设置轮播图中的图片的样式 */
+    .slideshow img {
+      width: 100%;
+      height: auto;
+      display: none; /* 初始隐藏所有图片 */
+    }
+
+    /* 显示当前图片的样式 */
+    .slideshow img.active {
+      display: block;
+    }
+
+    /* 设置左滑和右滑按钮的样式 */
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      padding: 8px;
+      cursor: pointer;
+      z-index: 1; /* 添加此样式使按钮在上层显示 */
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    /* 设置下方区域的样式 */
+    .content {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .content img {
+      width: 200px;
+      height: auto;
+      margin-right: 20px;
+    }
+
+    /* 设置底部链接的样式 */
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .footer a {
+      margin: 0 10px;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow">
+    <a href=""><img class="active" src="image1.jpg" alt="Image 1"></a>
+    <a href=""><img src="image2.png" alt="Image 2"></a>
+    <a href=""><img src="image3.jpg" alt="Image 3"></a>
+    <div class="prev" onclick="previousSlide()">&#10094;</div>
+    <div class="next" onclick="nextSlide()">&#10095;</div>
+  </div>
+
+  <div class="content">
+    <img src="image4.jpeg" alt="Left Image">
+    <p>MoncheyPlanet Game Limited</p>
+  </div>
+
+  <div class="footer">
+    <a href="https://freefanbrainstorm.github.io/privacypolicy.txt">Privacy Policy</a>
+    <a href="https://freefanbrainstorm.github.io/TermsofUse.txt">Terms of Use</a>
+  </div>
+
+  <script>
+    var slideIndex = 0;
+    var timer; // 用于存储自动轮播的定时器
+
+    showSlides();
+
+    function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("slideshow")[0].getElementsByTagName("img");
+
+      // 隐藏所有图片
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+
+      // 显示当前图片
+      slides[slideIndex - 1].style.display = "block";
+
+      // 清除之前的自动轮播定时器
+      clearTimeout(timer);
+      // 设置新的自动轮播定时器
+      timer = setTimeout(showSlides, 5000); // 自动轮播间隔为5秒
+    }
+
+    function previousSlide() {
+      var slides = document.getElementsByClassName("slideshow")[0].getElementsByTagName("img");
+      slideIndex--;
+      if (slideIndex < 1) {
+        slideIndex = slides.length;
+      }
+
+      // 隐藏所有图片
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      // 显示当前图片
+      slides[slideIndex - 1].style.display = "block";
+    }
+
+    function nextSlide() {
+      var slides = document.getElementsByClassName("slideshow")[0].getElementsByTagName("img");
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+
+      // 隐藏所有图片
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+
+      // 显示当前图片
+      slides[slideIndex - 1].style.display = "block";
+    }
+
+    // 获取 .prev 元素，并绑定点击事件
+    var prevButton = document.querySelector('.prev');
+    prevButton.addEventListener('click', previousSlide);
+  </script>
+</body>
+</html>
